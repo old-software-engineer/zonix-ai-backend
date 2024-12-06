@@ -7,7 +7,7 @@ TENANT_ID = os.getenv("TENANT_ID")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
 TOKEN_URL = f"https://login.microsoftonline.com/common/oauth2/v2.0/token"
 AUTH_URL = f"https://login.microsoftonline.com/common/oauth2/v2.0/token"
-SCOPES = "User.Read TeamMember.Read.All Team.ReadBasic.All"
+SCOPES = "User.Read TeamMember.Read.All Team.ReadBasic.All GroupMember.ReadWrite.all Group.Read.All Group.ReadWrite.All"
 
 def get_login_url():
     params = {

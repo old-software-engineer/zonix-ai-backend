@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
-from app.config import AUTH_URL, REDIRECT_URI, CLIENT_ID, CLIENT_SECRET, TOKEN_URL
+from app.config import AUTH_URL, REDIRECT_URI, CLIENT_ID, CLIENT_SECRET, TOKEN_URL, SCOPES
 from app.services.microsoft_auth import exchange_code_for_token
 import httpx
-
 
 router = APIRouter()
 
@@ -17,7 +16,7 @@ async def login():
         "response_type": "code",
         "redirect_uri": REDIRECT_URI,
         "response_mode": "query",
-        "scope": "User.Read offline_access openid profile",
+        "scope": SCOPES,
     }
     auth_url = f"{AUTH_URL}?{'&'.join([f'{k}={v}' for k, v in auth_params.items()])}"
     return RedirectResponse(url=auth_url)
@@ -33,7 +32,7 @@ async def callback(request: Request):
     # Token exchange payload
     token_data = {
         "client_id": CLIENT_ID,
-        "scope": "User.Read offline_access openid profile",
+        "scope": SCOPES,
         "code": code,
         "redirect_uri": REDIRECT_URI,
         "grant_type": "authorization_code",

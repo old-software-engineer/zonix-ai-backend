@@ -1,5 +1,5 @@
 import httpx
-from app.config import TOKEN_URL, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+from app.config import TOKEN_URL, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, SCOPES
 
 async def exchange_code_for_token(code: str):
     """
@@ -7,7 +7,7 @@ async def exchange_code_for_token(code: str):
     """
     token_data = {
         "client_id": CLIENT_ID,
-        "scope": "User.Read offline_access openid profile",
+        "scope": SCOPES,
         "code": code,
         "redirect_uri": REDIRECT_URI,
         "grant_type": "authorization_code",
